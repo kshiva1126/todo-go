@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <!-- Vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    </head>
+</html>
+<body>
+    <div id="top">
+        <h1>TODOタスク</h1>
+        <button v-on:click="showTask">タスクを表示する</button>
+        <ul>
+            <li v-for="task in tasks">
+                {{ task.name }}
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: '#top',
+
+            data: {
+                tasks: [],
+            },
+
+            methods: {
+                showTask: function() {
+                    axios.get('/tasks').then(res => {
+                        console.log(res);
+                        this.tasks = res.data.items || [];
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                },
+            }
+        })
+    </script>
+</body>
