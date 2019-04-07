@@ -1,8 +1,6 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/kshiva1126/todo-go/manipulations"
 )
 
@@ -29,6 +27,5 @@ func GetTasks() (tc TaskCollection) {
 		task := doTask(v.Id, v.Name)
 		tc.Tasks = append(tc.Tasks, &task)
 	}
-	fmt.Println(tc.Tasks)
 	return
 }
