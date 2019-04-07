@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/kshiva1126/todo-go/manipulations"
+	"todo-go/manipulations"
 )
 
 type Task struct {

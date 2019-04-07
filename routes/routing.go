@@ -3,8 +3,9 @@ package routes
 import (
 	"net/http"
 
+	"todo-go/models"
+
 	"github.com/gin-gonic/gin"
-	"github.com/kshiva1126/todo-go/models"
 )
 
 func GetTasks(c *gin.Context) {

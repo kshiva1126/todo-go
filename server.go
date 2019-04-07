@@ -1,8 +1,9 @@
 package main
 
 import (
+	"todo-go/routes"
+
 	"github.com/gin-gonic/gin"
-	"github.com/kshiva1126/todo-go/routes"
 )
 
 func main() {
