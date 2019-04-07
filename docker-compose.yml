@@ -1,8 +1,24 @@
 version: '3'
 services:
   app:
-    build: .
+    build:
+      context: ./docker/app
     volumes:
-      - ./:/go/src/hot_reload_docker
+      - ./:/go/src/todo-go
     ports:
       - "8083:8083"
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./docker/db
+    ports:
+      - "3306:3306"
+    env_file: .env
+    volumes:
+      - todo-db:/var/lib/mysql
+
+volumes:
+  todo-db:
+    driver: local
