@@ -1,6 +1,6 @@
 FROM golang:1.12
 
-WORKDIR /go/src/hot_reload_docker
+WORKDIR /go/src/todo-go
 COPY . .
 ENV GO111MODULE=on
 
