@@ -10,19 +10,18 @@
         <h1>TODOタスク</h1>
         <button v-on:click="showTask">タスクを表示する</button>
         <ul>
-            <li v-for="task in tasks">
+            <li v-for="(task, index) in tasks">
                 {{ task.name }}
+                <button v-on:click="deleteTask(index)" class="delete" type="button">delete</button>
             </li>
         </ul>
     </div>
     <script>
         new Vue({
             el: '#top',
-
             data: {
                 tasks: [],
             },
-
             methods: {
                 showTask: function() {
                     axios.get('/tasks').then(res => {
@@ -32,7 +31,18 @@
                         console.log(error);
                     })
                 },
-            }
+                deleteTask: function(index) {
+                    console.log(index);
+                    let params = new URLSearchParams();
+                    params.append('id', index);
+                    axios.post('/delete', params).then(res => {
+                        console.log(res);
+                        this.tasks = res.data.items || [];
+                    }).catch(function(error) {
+                        console.log(error);
+                    })
+                },
+            },
         })
     </script>
 </body>

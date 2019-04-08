@@ -11,8 +11,11 @@ import (
 )
 
 type Task struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+	Id        int    `json:"id"`
+	Name      string `json:"name"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
+	DelFlg    int    `json:"del_flg"`
 }
 
 func GormConnect() *gorm.DB {
@@ -50,11 +53,20 @@ func getParamString(param string, defaultValue string) string {
 	return defaultValue
 }
 
-func DbGetAll() []Task {
+func GetAllTasks() []Task {
 	var tasks []Task
 	db := GormConnect()
+	defer db.Close()
 	db.Find(&tasks)
 	db.LogMode(true)
-	db.Close()
 	return tasks
+}
+
+func DeleteTask(id int) {
+	var task Task
+	db := GormConnect()
+	defer db.Close()
+	task.Id = id
+	db.First(&task)
+	db.Delete(&task)
 }

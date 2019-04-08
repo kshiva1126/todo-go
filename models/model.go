@@ -15,17 +15,23 @@ type TaskCollection struct {
 
 func doTask(id int, name string) (t Task) {
 	t = Task{}
-	t.Id = id
-	t.Name = name
+	t.Id, t.Name = id, name
 	return
 }
 
 func GetTasks() (tc TaskCollection) {
 	tc = TaskCollection{}
-	tasks := manipulations.DbGetAll()
+	tasks := manipulations.GetAllTasks()
 	for _, v := range tasks {
 		task := doTask(v.Id, v.Name)
 		tc.Tasks = append(tc.Tasks, &task)
 	}
+	return
+}
+
+func DeleteTask(id int) (tc TaskCollection) {
+	manipulations.DeleteTask(id)
+	tc = TaskCollection{}
+	tc = GetTasks()
 	return
 }
