@@ -44,4 +44,10 @@ insert into tasks values (
     NOW(),
     NOW(),
     0
+), (
+    (select max(id) from tasks as t)+1,
+    "読書",
+    NOW(),
+    NOW(),
+    0
 );
