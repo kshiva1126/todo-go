@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -11,11 +12,11 @@ import (
 )
 
 type Task struct {
-	Id        int    `json:"id"`
-	Name      string `json:"name"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
-	DelFlg    int    `json:"del_flg"`
+	Id        int       `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DelFlg    int       `json:"del_flg"`
 }
 
 func GormConnect() *gorm.DB {
@@ -58,7 +59,8 @@ func GetAllTasks() []Task {
 	db := GormConnect()
 	defer db.Close()
 	db.Find(&tasks)
-	db.LogMode(true)
+	// Gorm Log
+	// db.LogMode(true)
 	return tasks
 }
 
@@ -69,4 +71,12 @@ func DeleteTask(id int) {
 	task.Id = id
 	db.First(&task)
 	db.Delete(&task)
+}
+
+func AddTask(name string) {
+	var task Task
+	db := GormConnect()
+	defer db.Close()
+	task.Name = name
+	db.Create(&task)
 }

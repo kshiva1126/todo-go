@@ -19,11 +19,12 @@ insert into user values (
 );
 
 create table tasks (
-    id int(11) not null default 0,
+    id int(11) not null auto_increment,
     name varchar(255) default null,
     created_at datetime default null,
     updated_at datetime default null,
-    del_flg smallint default 0
+    del_flg smallint default 0,
+    primary key(id)
 );
 
 insert into tasks values (

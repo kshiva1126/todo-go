@@ -11,5 +11,6 @@ func main() {
 	router.StaticFile("/", "templates/index.html")
 	router.GET("/tasks", routes.GetTasks)
 	router.POST("/delete", routes.DeleteTask)
+	router.POST("/add", routes.AddTask)
 	router.Run(":8083")
 }
