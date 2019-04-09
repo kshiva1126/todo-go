@@ -22,3 +22,8 @@ func DeleteTask(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, models.DeleteTask(id))
 }
+
+func AddTask(c *gin.Context) {
+	taskName := c.PostForm("task_name")
+	c.JSON(http.StatusOK, models.AddTask(taskName))
+}

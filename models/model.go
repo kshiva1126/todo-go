@@ -35,3 +35,10 @@ func DeleteTask(id int) (tc TaskCollection) {
 	tc = GetTasks()
 	return
 }
+
+func AddTask(taskName string) (tc TaskCollection) {
+	manipulations.AddTask(taskName)
+	tc = TaskCollection{}
+	tc = GetTasks()
+	return
+}

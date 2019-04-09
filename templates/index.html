@@ -7,14 +7,15 @@
 </html>
 <body>
     <div id="top">
-        <h1>TODOタスク</h1>
-        <button v-on:click="showTask">タスクを表示する</button>
+        <h1>TODOTask</h1>
+        <button v-on:click="showTask">display tasks</button>
         <ul>
-            <li v-for="(task, index) in tasks">
+            <li v-for="task in tasks">
                 {{ task.name }}
-                <button v-on:click="deleteTask(index)" class="delete" type="button">delete</button>
+                <button v-on:click="deleteTask(task.id)" class="delete" type="button">finish!</button>
             </li>
         </ul>
+        <input v-model="text" type="text" placeholder="edit me"><button v-on:click="addTask(text)">add</button>
     </div>
     <script>
         new Vue({
@@ -25,23 +26,35 @@
             methods: {
                 showTask: function() {
                     axios.get('/tasks').then(res => {
-                        console.log(res);
+                        // console.log(res);
                         this.tasks = res.data.items || [];
                     }).catch(function (error) {
                         console.log(error);
                     })
                 },
-                deleteTask: function(index) {
-                    console.log(index);
+                deleteTask: function(id) {
+                    // console.log(id);
                     let params = new URLSearchParams();
-                    params.append('id', index);
+                    params.append('id', id);
                     axios.post('/delete', params).then(res => {
-                        console.log(res);
+                        // console.log(res);
                         this.tasks = res.data.items || [];
                     }).catch(function(error) {
                         console.log(error);
                     })
                 },
+                addTask: function(text) {
+                    // console.log(text);
+                    let params = new URLSearchParams();
+                    params.append('task_name', text);
+                    this.text = '';
+                    axios.post('/add', params).then(res => {
+                        // console.log(res);
+                        this.tasks = res.data.items || [];
+                    }).catch(function(error) {
+                        console.log(error);
+                    })
+                }
             },
         })
     </script>
