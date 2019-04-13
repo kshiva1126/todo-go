@@ -1,23 +1,3 @@
-create table user (
-    id int(11) not null,
-    name varchar(255) default null,
-    old smallint default 0
-);
-
-insert into user values (
-    1,
-    'Adam',
-    18
-), (
-    (select max(id) from user as u)+1,
-    'Brown',
-    20
-), (
-    (select max(id) from user as u)+1,
-    'Choerry',
-    17
-);
-
 create table tasks (
     id int(11) not null auto_increment,
     name varchar(255) default null,
